@@ -72,6 +72,7 @@ OUTLINE
 - [Read & Write Connections](#read--write-connections)
   - [Configuration](#configuration-3)
   - [Load Balancing for Databases](#load-balancing-for-databases)
+  - [Reconnection](#reconnection)
 - [Pessimistic Locking](#pessimistic-locking)
 - [Helpers](#helpers)
   - [indexBy()](#indexby)
@@ -846,6 +847,27 @@ Read & Write Connections could be set in the model which extends `yidas\Model`, 
 
 There are three types to set read & write databases:
 
+#### Codeigniter DB Connection
+
+It recommends to previously prepare CI DB connections, you could assign to attributes directly in construct section before parent's constrcut: 
+
+```php
+class My_model extends yidas\Model
+{
+    function __construct()
+    {
+        $this->database = $this->db;
+        
+        $this->databaseRead = $this->dbr;
+        
+        parent::__construct();
+    }
+}
+```
+
+> If you already have `$this->db`, it would be the default setting for both connection.
+
+> This setting way supports [Reconnection](#reconnection).
 
 #### Codeigniter Database Key
 
@@ -861,24 +883,6 @@ class My_model extends yidas\Model
 ```
 
 > This method supports cache mechanism for DB connections, each model could define its own connections but share the same connection by key.
-
-#### Codeigniter DB Connection
-
-If you already have prepared CI DB connections, you could assign to attributes directly in construct section before parent's constrcut: 
-
-```php
-class My_model extends yidas\Model
-{
-    function __construct()
-    {
-        $this->database = $this->db;
-        
-        $this->databaseRead = $this->dbr;
-        
-        parent::__construct();
-    }
-}
-```
 
 #### Codeigniter Database Config Array
 
@@ -915,6 +919,19 @@ class My_model extends yidas\Model
     protected $databaseRead = 'slave';
 }
 ```
+
+### Reconnection
+
+If you want to reconnect database for reestablishing the connection in Codeigniter 3, for `$this->db` example:
+
+```php
+$this->db->close();
+$this->db->initialize();
+```
+
+The model connections with [Codeigniter DB Connection](#codeigniter-db-connection) setting could be reset after reset the referring database connection.
+
+> Do NOT use [`reconnect()`](https://www.codeigniter.com/userguide3/database/db_driver_reference.html#CI_DB_driver::reconnect) which is a useless method. 
 
 ---
 
