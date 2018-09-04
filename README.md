@@ -14,7 +14,7 @@ CodeIgniter 3 Active Record (ORM) Standard Model supported Read & Write Connecti
 
 This ORM Model extension is collected into [yidas/codeigniter-pack](https://github.com/yidas/codeigniter-pack) which is a complete solution for Codeigniter framework.
 
-Features
+FEATURES
 --------
 
 - ***Elegant patterns** as Laravel Eloquent ORM & Yii2 Active Record*
