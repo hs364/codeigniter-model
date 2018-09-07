@@ -671,8 +671,11 @@ public array toArray()
 
 *Example:*
 ```
-$record = $activeRecord->toArray();
+if ($activeRecord)
+    $record = $activeRecord->toArray();
 ```
+
+> It's recommended to use find() with CI builder instead of using ORM and turning it to array.
 
 ---
 
