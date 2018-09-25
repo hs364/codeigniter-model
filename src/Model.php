@@ -773,6 +773,16 @@ class Model extends \CI_Model implements \ArrayAccess
     }
 
     /**
+     * Get count from query
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->getDBR()->count_all_results();
+    }
+
+    /**
      * Lock the selected rows in the table for updating.
      * 
      * sharedLock locks only for write, lockForUpdate also prevents them from being selected
